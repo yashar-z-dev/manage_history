@@ -7,9 +7,10 @@ setup(
     package_dir={"": "src"},
     entry_points={
         'console_scripts': [
-            'manage-history = script:main',
+            'manage-history = manage_history.script:main',
         ],
     },
+
     author='yashar.z.dev',
     author_email='your.email@example.com',
     description='A CLI tool to clean bash/zsh history with filters and backup',
