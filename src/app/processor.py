@@ -62,6 +62,7 @@ def process_history(raw_lines, args, debug=False):
 def sort_and_clean_lines(input_path=None, input_stream=None, debug=False):
     seen = set()
     result = []
+    error_lines = []
 
     if debug:
         print("[DEBUG] Starting sort_and_clean_lines()")
@@ -70,30 +71,40 @@ def sort_and_clean_lines(input_path=None, input_stream=None, debug=False):
     if input_path:
         if debug:
             print(f"[DEBUG] Reading from input file: {input_path}")
-        with open(input_path, encoding="utf-8") as f:
-            lines = f.readlines()
+        try:
+            with open(input_path, "rb") as f:
+                raw_lines = f.readlines()
+        except Exception as e:
+            print(f"❌ Error reading file: {e}")
+            return []
     elif input_stream:
         if debug:
             print("[DEBUG] Reading from input stream")
-        lines = input_stream
+        raw_lines = input_stream
     else:
         raise ValueError("❌ No input source provided.")
 
-    for idx, raw_line in enumerate(lines, start=1):
+    for idx, raw_line in enumerate(raw_lines, start=1):
         try:
-            line = raw_line.strip()
-            cleaned = re.sub(r'^\d+\s+', '', line)
-            if cleaned and cleaned not in seen:
-                seen.add(cleaned)
-                result.append(cleaned)
-                if debug:
-                    print(f"[DEBUG] Line {idx} added: {cleaned}")
+            line = raw_line.decode("utf-8").strip()
         except UnicodeDecodeError:
+            error_lines.append(idx)
             if debug:
                 print(f"[DEBUG] Line {idx} had decoding error. Skipped.")
             continue
 
-    sorted_lines = [f"{i} {line}" for i, line in enumerate(result, start=1)]
+        cleaned = re.sub(r'^\d+\s+', '', line)
+        if cleaned and cleaned not in seen:
+            seen.add(cleaned)
+            result.append(cleaned)
+            if debug:
+                print(f"[DEBUG] Line {idx} added: {cleaned}")
+
+    if error_lines:
+        print(f"\n⚠️ Skipped {len(error_lines)} lines due to encoding errors:")
+        print("   " + ", ".join(str(i) for i in error_lines))
+
+    sorted_lines = [f"{i} {line}" for i, line in enumerate(sorted(result), start=1)]
 
     if debug:
         print(f"[DEBUG] Total unique cleaned lines: {len(sorted_lines)}")
