@@ -14,7 +14,7 @@ setup(
     python_requires=">=3.6",
     entry_points={
         "console_scripts": [
-            "manage-history=mh_core.main:main"
+            "manage-history=src.main:main"
         ]
     },
     classifiers=[
