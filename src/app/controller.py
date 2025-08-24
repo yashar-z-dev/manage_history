@@ -1,7 +1,7 @@
 import sys
-from shell import detect_shell
-from backup import find_backup_filename
-from processor import process_history, sort_and_clean_lines
+from app.shell import detect_shell
+from app.backup import find_backup_filename
+from app.processor import process_history, sort_and_clean_lines
 
 def run(args, debug=False):
     if debug:

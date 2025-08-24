@@ -1,5 +1,5 @@
-from parser import get_args
-from controller import run
+from app.parser import get_args
+from app.controller import run
 
 def main():
     args = get_args()

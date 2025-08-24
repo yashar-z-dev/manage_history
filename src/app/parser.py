@@ -1,5 +1,5 @@
 import argparse
-from utils import parse_line_range
+from app.utils import parse_line_range
 
 def get_args():
     parser = argparse.ArgumentParser(description="Clean shell history with filters and confirmation.")
