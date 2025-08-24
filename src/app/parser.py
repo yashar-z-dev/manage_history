@@ -1,4 +1,5 @@
 import argparse
+import os
 from app.utils import parse_line_range
 
 def get_args():
@@ -13,9 +14,20 @@ def get_args():
     parser.add_argument('--debug', action='store_true', help='Enable debug mode')
 
     args = parser.parse_args()
+
+    # Expand ~ to full home path
+    args.backup_dir = os.path.expanduser(args.backup_dir)
+
+    # Create backup directory if it doesn't exist
+    if not os.path.exists(args.backup_dir):
+        os.makedirs(args.backup_dir, exist_ok=True)
+        print(f"[INFO] Created backup directory: {args.backup_dir}")
+
+    # Parse line range
     args.line_numbers = parse_line_range(args.lines)
-    
+
     if args.debug:
         print("[DEBUG] Line range parsed:", args.line_numbers)
-    
+        print("[DEBUG] Backup directory:", args.backup_dir)
+
     return args
