@@ -7,26 +7,26 @@ A reliable CLI tool for cleaning and managing shell history files with customiza
 ## 🚀 Installation
 
 ### 1. Clone the repository
-
+```
 git clone https://github.com/yashar-z-dev/manage_history.git
 cd manage_history
-
+```
 ### 2. Install with pip
-
+```
 pip install .
-
+```
 ### 3. Verify installation
-
+```
 manage-history -h
-
+```
 If no errors appear, the tool is ready to use. You can safely delete the project folder afterward.
 
 ---
 
 ## 🛠️ Usage
-
+```
 manage-history [OPTIONS]
-
+```
 ### Options:
 
 | Option | Description |
@@ -47,20 +47,25 @@ manage-history [OPTIONS]
 ## 📦 Examples
 
 - Remove all lines containing `rm`:
+```
   manage-history -k rm
-
+```
 - Remove lines 20 through 30:
+```
   manage-history -l 20-30
-
+```
 - Remove dangerous commands using regex:
+```
   manage-history -r 'sudo\s+rm\s+-rf'
-
+```
 - Sort and clean `.bash_history`:
+```
   manage-history -s -i ~/.bash_history
-
+```
 - Remove sensitive entries and save backup to a custom directory:
+```
   manage-history -k password --backup-dir ~/history_backups
-
+```
 ---
 
 ## 🤝 Contributing
