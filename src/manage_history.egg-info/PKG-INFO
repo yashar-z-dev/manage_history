@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: manage-history
+Version: 1.1.0
+Summary: A command-line tool to clean and manage shell history with filters, sorting, and backup.
+Home-page: https://github.com/yashar-z-dev/manage_history
+Author: Yashar Z
+Author-email: yashar.z.dev@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.6
+Description-Content-Type: text/plain
+
+Manage shell history interactively using keywords, regex, line ranges, and exclusions. Supports sorting and backup.
