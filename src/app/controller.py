@@ -60,6 +60,14 @@ def run(args, debug=False):
     # Default or mixed mode
     decoded_lines, lines_to_delete = process_history(raw_lines, args, debug=debug)
 
+    backup_file = find_backup_filename(args.backup_dir)
+    if debug:
+        print(f"[DEBUG] Backup file path: {backup_file}")
+
+    with open(backup_file, "w", encoding="utf-8") as f:
+        f.writelines(decoded_lines + [line for _, line in lines_to_delete])
+    print(f"✅ Backup saved: {backup_file}")
+
     if not lines_to_delete:
         print("ℹ️ No lines matched for deletion.")
         return
@@ -72,14 +80,6 @@ def run(args, debug=False):
     if confirm != "y":
         print("❌ Operation cancelled.")
         return
-
-    backup_file = find_backup_filename(args.backup_dir)
-    if debug:
-        print(f"[DEBUG] Backup file path: {backup_file}")
-
-    with open(backup_file, "w", encoding="utf-8") as f:
-        f.writelines(decoded_lines + [line for _, line in lines_to_delete])
-    print(f"✅ Backup saved: {backup_file}")
 
     with open(history_path, "w", encoding="utf-8") as f:
         f.writelines(decoded_lines)

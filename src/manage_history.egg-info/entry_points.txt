@@ -1,2 +1,0 @@
-[console_scripts]
-manage-history = app.main:main
