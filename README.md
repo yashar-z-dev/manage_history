@@ -36,7 +36,7 @@ cd manage_history
 ```
 ### 2. Install with pip
 ```
-pip install .
+pipx install .
 ```
 ### 3. Verify installation
 ```
